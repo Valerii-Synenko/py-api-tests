@@ -1,7 +1,3 @@
-import json
-
-import requests
-
 from src.services import UserApiServices
 
 
