@@ -21,3 +21,7 @@ class UserApiServices(ComonServices):
 
     def register_new_user(self, user_payload) -> requests.Response:
         return self.perform_post_requests(endpoint="/register", user_payload=user_payload)
+
+    def create_new_user(self, user_payload) -> requests.Response:
+        return self.perform_post_requests(endpoint="/users", user_payload=user_payload)
+
