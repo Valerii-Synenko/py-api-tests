@@ -9,6 +9,8 @@ def test_can_register_new_user(user_ppi_services):
         user_password="cityslicka",
     )
 
+    assert user_registration_response.json()["id"] == 4
+
     assert user_registration_response.status_code == 200
 
 
@@ -20,5 +22,7 @@ def test_can_create_new_user(user_ppi_services, faker):
         user_name=faker.name(),
         user_jod=faker.job(),
     )
+
+    assert user_creation_response.json()["name"] is not None
 
     assert user_creation_response.status_code == 201
