@@ -9,11 +9,11 @@ class ComonServices:
         self.base_url = "https://reqres.in/api"
         self.request_headers = {"Content-Type": "application/json"}
 
-    def perform_post_requests(self, endpoint: str, user_payload: dict) -> requests.Response:
+    def perform_post_requests(self, endpoint: str, payload: dict) -> requests.Response:
         return requests.post(
             url=f"{self.base_url}{endpoint}",
             headers=self.request_headers,
-            data=json.dumps(user_payload),
+            data=json.dumps(payload),
         )
 
 
