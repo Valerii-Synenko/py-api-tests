@@ -1,7 +1,7 @@
 import pytest
 from faker import Faker
 
-from src.services import UserApiServices
+from src.services.user_api_services import UserApiServices
 
 
 @pytest.fixture
