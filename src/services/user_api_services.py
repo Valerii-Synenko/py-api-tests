@@ -1,11 +1,12 @@
 import requests
+from src.response.response import AssertableResponse
 
 from src.services.common_service import ComonServices
 
 
 class UserApiServices(ComonServices):
 
-    def register_new_user(self, user_email: str, user_password: str) -> requests.Response:
+    def register_new_user(self, user_email: str, user_password: str) -> AssertableResponse:
         """
         Method make registration of a new user.
         It makes the POST method to the "/register" endpoint, with the specific data
@@ -14,9 +15,12 @@ class UserApiServices(ComonServices):
         :return: Response object (from Requests package)
         """
         user_payload = {"email": user_email, "password": user_password}
-        return self.perform_post_requests(endpoint="/register", payload=user_payload)
+        response = self.perform_post_requests(endpoint="/register", payload=user_payload)
+        return AssertableResponse(response=response)
 
-    def create_new_user(self, user_name: str, user_jod: str) -> requests.Response:
+        # return self.perform_post_requests(endpoint="/register", payload=user_payload)
+
+    def create_new_user(self, user_name: str, user_jod: str) -> AssertableResponse:
         """
         Method makes creation/addition of a new user.
         It makes the POST method to the "/register" endpoint, with the specific data
@@ -25,4 +29,5 @@ class UserApiServices(ComonServices):
         :return: Response object (from Requests package)
         """
         user_payload = {"name": user_name, "job": user_jod}
-        return self.perform_post_requests(endpoint="/users", payload=user_payload)
+        response = self.perform_post_requests(endpoint="/users", payload=user_payload)
+        return AssertableResponse(response=response)
