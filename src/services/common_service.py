@@ -3,6 +3,7 @@ import os
 
 from dotenv import load_dotenv
 
+#  Load the environment config
 load_dotenv()
 
 import requests
