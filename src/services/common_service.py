@@ -1,4 +1,9 @@
 import json
+import os
+
+from dotenv import load_dotenv
+
+load_dotenv()
 
 import requests
 
@@ -6,7 +11,7 @@ import requests
 class ComonServices:
 
     def __init__(self):
-        self.base_url = "https://reqres.in/api"
+        self.base_url = os.getenv("BASE_API_URL")
         self.request_headers = {"Content-Type": "application/json"}
 
     def perform_post_requests(self, endpoint: str, payload: dict) -> requests.Response:
