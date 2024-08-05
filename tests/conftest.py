@@ -15,7 +15,7 @@ def faker():
 
 
 @pytest.fixture
-def user_ppi_services():
+def user_api_services():
     """
     The fixture that provides the object of the UserApiServices class
     :return: the object of the UserApiServices class
