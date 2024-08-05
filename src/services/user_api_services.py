@@ -1,4 +1,5 @@
-import requests
+from src.pydantic_models.request_models.user_request_model import CreateUserRequestModel
+from src.pydantic_models.response_models.user_response_model import CreateUserResponseModel, RegisterUserResponseModel
 from src.response.response import AssertableResponse
 
 from src.services.common_service import ComonServices
@@ -18,16 +19,16 @@ class UserApiServices(ComonServices):
         response = self.perform_post_requests(endpoint="/register", payload=user_payload)
         return AssertableResponse(response=response)
 
-        # return self.perform_post_requests(endpoint="/register", payload=user_payload)
-
-    def create_new_user(self, user_name: str, user_jod: str) -> AssertableResponse:
+    def create_new_user(self, user_name: str, user_job: str) -> tuple[int, CreateUserResponseModel]:
         """
         Method makes creation/addition of a new user.
-        It makes the POST method to the "/register" endpoint, with the specific data
+        It makes the POST method to the "/user" endpoint, with the specific data
         :param user_name: The name with which will be created a user
-        :param user_jod: The user's job with which the user will be created
-        :return: Response object (from Requests package)
+        :param user_job: The user's job with which the user will be created
+        :return: Tuple of two elements, CreateUserResponse pydantic model and response status code.
         """
-        user_payload = {"name": user_name, "job": user_jod}
-        response = self.perform_post_requests(endpoint="/users", payload=user_payload)
-        return AssertableResponse(response=response)
+        create_user_request_model = CreateUserRequestModel(name=user_name, job=user_job)
+        response = self.perform_post_requests(endpoint="/users", payload=create_user_request_model.model_dump())
+        create_user_response_model = CreateUserResponseModel(**response.json())
+
+        return response.status_code, create_user_response_model
