@@ -4,8 +4,8 @@ def test_can_register_new_user(user_api_services):
     """
 
     response_status_code, response_model = user_api_services.register_new_user(
-        user_email="eve.holt@reqres.in",
-        user_password="cityslicka",
+        email="eve.holt@reqres.in",
+        password="pistol",
     )
 
     assert response_status_code == 200
