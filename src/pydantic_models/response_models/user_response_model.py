@@ -9,24 +9,6 @@ class CreateUserResponseModel(BaseModel):
     id: str
     createdAt: str
 
-    @field_validator("name")
-    def check_name(cls, value):
-        if len(value) < 0:
-            raise ValueError('"name" must be a string with at least 1 length')
-        return value
-
-    @field_validator("job")
-    def check_name(cls, value):
-        if len(value) < 0:
-            raise ValueError('"job" must be a string with at least 1 length')
-        return value
-
-    @field_validator("id")
-    def check_name(cls, value):
-        if len(value) < 0:
-            raise ValueError('"id" must be a string with at least 1 length')
-        return value
-
     @field_validator("createdAt")
     def validate_created_at(cls, value):
         try:
