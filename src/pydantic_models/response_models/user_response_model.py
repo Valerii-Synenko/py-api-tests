@@ -26,4 +26,5 @@ class RegisterUserResponseModel(BaseModel):
     def validate_token(cls, value):
         if not len(value) == 17:
             raise ValueError("'token' must be a string with length of 17 characters")
+        return value
 
