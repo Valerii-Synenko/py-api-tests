@@ -25,6 +25,5 @@ class RegisterUserResponseModel(BaseModel):
     @field_validator("token")
     def validate_token(cls, value):
         if not len(value) == 17:
-            raise ValueError("'token' must be a string with length of 17 characters")
+            raise ValueError(f"expected 'token' length is 17 but was was received {value}")
         return value
-
