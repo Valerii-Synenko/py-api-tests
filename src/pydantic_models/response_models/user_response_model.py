@@ -14,10 +14,16 @@ class CreateUserResponseModel(BaseModel):
         try:
             datetime.strptime(value, "%Y-%m-%dT%H:%M:%S.%fZ")
         except ValueError:
-            raise ValueError('"createdAt" must be in the format YYYY-MM-DDTHH:MM:SS.ffffffZ')
+            raise ValueError("'createdAt' must be in the format YYYY-MM-DDTHH:MM:SS.ffffffZ")
         return value
 
 
 class RegisterUserResponseModel(BaseModel):
     id: int
     token: str
+
+    @field_validator("token")
+    def validate_token(cls, value):
+        if not len(value) == 17:
+            raise ValueError("'token' must be a string with length of 17 characters")
+
