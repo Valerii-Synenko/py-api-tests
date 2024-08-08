@@ -11,19 +11,19 @@ class CreateUserResponseModel(BaseModel):
 
     @field_validator("name")
     def check_name(cls, value):
-        if not isinstance(value, str) or len(value) < 0:
+        if len(value) < 0:
             raise ValueError('"name" must be a string with at least 1 length')
         return value
 
     @field_validator("job")
     def check_name(cls, value):
-        if not isinstance(value, str) or len(value) < 0:
+        if len(value) < 0:
             raise ValueError('"job" must be a string with at least 1 length')
         return value
 
     @field_validator("id")
     def check_name(cls, value):
-        if not isinstance(value, str) or len(value) < 0:
+        if len(value) < 0:
             raise ValueError('"id" must be a string with at least 1 length')
         return value
 
