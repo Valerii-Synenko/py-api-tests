@@ -4,6 +4,15 @@ from pydantic import BaseModel, field_validator
 
 
 class CreateUserResponseModel(BaseModel):
+    """
+    A model representing the response received after creating a user.
+
+    Attributes:
+        name (str): The name of the created user.
+        job (str): The job title of the created user.
+        id (str): The unique identifier assigned to the user.
+        createdAt (str): The timestamp when the user was created, expected to be in ISO 8601 format.
+    """
     name: str
     job: str
     id: str
@@ -26,6 +35,13 @@ class CreateUserResponseModel(BaseModel):
 
 
 class RegisterUserResponseModel(BaseModel):
+    """
+    A model representing the response received after registering a user.
+
+    Attributes:
+        id (int): The unique identifier assigned to the user.
+        token (str): The authentication token assigned to the user, expected to be 17 characters long.
+    """
     id: int
     token: str
 

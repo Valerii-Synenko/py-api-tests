@@ -2,11 +2,25 @@ from pydantic import BaseModel, field_validator
 
 
 class CreateUserRequestModel(BaseModel):
+    """
+    A moder represent the request for a new user creation.
+    Attributes:
+        name (str): The name for a new user.
+        job (str): The job title for the new user.
+    """
+
     name: str
     job: str
 
 
 class RegisterUserRequestModel(BaseModel):
+    """
+    A moder represent the request for a new user registration.
+    Attributes:
+        email (str): One of the five accepted emails.
+        password (str): A password for the user.
+    """
+
     email: str
     password: str
 
