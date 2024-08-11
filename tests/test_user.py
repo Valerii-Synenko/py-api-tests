@@ -1,8 +1,9 @@
 def test_can_register_new_user(user_api_services):
     """
-    Test for registration of a user
-    """
+    Tests that a new user can be successfully registered with valid email and password.
 
+    Verifies that the API returns a 200 status code and that the user ID is correctly assigned.
+    """
     response_status_code, response_model = user_api_services.register_new_user(
         email="eve.holt@reqres.in",
         password="pistol",
@@ -14,9 +15,10 @@ def test_can_register_new_user(user_api_services):
 
 def test_can_create_new_user(user_api_services, faker):
     """
-    Test for creation of a user
-    """
+    Tests that a new user can be created with random name and job using the Faker library.
 
+    Verifies that the API returns a 201 status code and that the username is not empty.
+    """
     response_status_code, response_model = user_api_services.create_new_user(
         user_name=faker.name(),
         user_job=faker.job(),
