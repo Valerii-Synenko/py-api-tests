@@ -22,10 +22,14 @@ class ComonServices:
 
     def perform_post_requests(self, endpoint: str, payload: dict) -> requests.Response:
         """
-        Method performs the POST request using the POST method from the Requests package
-        :param endpoint: Еhe endpoint for which the request will be performed
-        :param payload: The dict with the required data which will be posted
-        :return: Response object (from Requests package)
+        Sends a POST request to the specified endpoint with the given payload.
+
+        This method utilizes the Requests package to perform the POST request, including the common headers
+        and base URL defined in the class.
+
+        :param endpoint: The API endpoint to which the POST request will be sent.
+        :param payload: A dictionary containing the data to be sent in the POST request body.
+        :return: A Response object from the Requests package representing the server's response.
         """
         return requests.post(
             url=f"{self.base_url}{endpoint}",
