@@ -8,6 +8,13 @@ load_dotenv()
 
 
 class ComonServices:
+    """
+    A base class for all service classes, providing common functionality such as the base URL for requests
+    and shared headers.
+
+    This class includes attributes and methods that are common across multiple service classes, such as
+    setting the base URL and defining headers used in HTTP requests.
+    """
 
     def __init__(self):
         self.base_url = os.getenv("BASE_API_URL")
