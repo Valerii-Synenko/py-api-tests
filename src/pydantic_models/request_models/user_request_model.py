@@ -11,7 +11,13 @@ class RegisterUserRequestModel(BaseModel):
     password: str
 
     @field_validator("email")
-    def validate_email(cls, value):
+    def validate_email(cls, value) -> str:
+        """
+        Validates that only specific emails could be used for the registration.
+        By the system design, we can register a user only with one of the predefined emails.
+        :param value: The email that must be validated.
+        :return: The str value of the validated email.
+        """
         specified_emails = [
             "george.bluth@reqres.in",
             "janet.weaver@reqres.in",
