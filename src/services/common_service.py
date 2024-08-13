@@ -25,7 +25,7 @@ class ComonServices:
         self.logger = Logger("ApiService")  # Add logbook logger
         self.logger.handlers.append(StreamHandler(sys.stdout))  # Add StreamHandler to output logs to console
 
-    def _post(self, endpoint: str, payload: dict) -> requests.Response:
+    def _post(self, endpoint: str, payload: dict, timeout: int = 20) -> requests.Response:
         """
         Sends a POST request to the specified endpoint with the given payload.
 
@@ -50,6 +50,7 @@ class ComonServices:
                 url=f"{self.base_url}{endpoint}",
                 headers=self.request_headers,
                 data=json.dumps(payload),
+                timeout=timeout,
             )
             response.raise_for_status()
             self.logger.info(
