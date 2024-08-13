@@ -20,8 +20,8 @@ def test_can_create_new_user(user_api_services, faker):
     Verifies that the API returns a 201 status code and that the username is not empty.
     """
     response_status_code, response_model = user_api_services.create_new_user(
-        user_name=faker.name(),
-        user_job=faker.job(),
+        name=faker.name(),
+        job=faker.job(),
     )
 
     assert response_status_code == 201
