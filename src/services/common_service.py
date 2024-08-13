@@ -1,6 +1,8 @@
 import json
 import os
+import sys
 
+from logbook import Logger, StreamHandler
 import requests
 from dotenv import load_dotenv
 
@@ -19,6 +21,8 @@ class ComonServices:
     def __init__(self):
         self.base_url = os.getenv("BASE_API_URL")
         self.request_headers = {"Content-Type": "application/json"}
+        self.logger = Logger("ApiService")  # Add logbook logger
+        self.logger.handlers.append(StreamHandler(sys.stdout))  # Add StreamHandler to output logs to console
 
     def _post(self, endpoint: str, payload: dict) -> requests.Response:
         """
@@ -31,6 +35,16 @@ class ComonServices:
         :param payload: A dictionary containing the data to be sent in the POST request body.
         :return: A Response object from the Requests package representing the server's response.
         """
+        self.logger.info(
+            f"""
+            
+        Going to send POST request:
+        url: {self.base_url}{endpoint},
+        headers: {self.request_headers},
+        body: {json.dumps(payload)}
+        """
+        )
+
         return requests.post(
             url=f"{self.base_url}{endpoint}",
             headers=self.request_headers,

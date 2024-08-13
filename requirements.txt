@@ -17,3 +17,4 @@ typing_extensions==4.12.2
 urllib3==2.2.2
 
 python-dotenv~=1.0.1
+Logbook~=1.7.0.post0
