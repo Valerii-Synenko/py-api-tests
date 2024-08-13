@@ -20,7 +20,7 @@ class ComonServices:
         self.base_url = os.getenv("BASE_API_URL")
         self.request_headers = {"Content-Type": "application/json"}
 
-    def perform_post_requests(self, endpoint: str, payload: dict) -> requests.Response:
+    def _post(self, endpoint: str, payload: dict) -> requests.Response:
         """
         Sends a POST request to the specified endpoint with the given payload.
 

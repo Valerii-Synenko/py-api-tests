@@ -21,7 +21,7 @@ class UserApiServices(ComonServices):
         :return: Response status code and RegisterUserResponseModel
         """
         register_user_request_model = RegisterUserRequestModel(email=email, password=password)
-        response = self.perform_post_requests(endpoint="/register", payload=register_user_request_model.model_dump())
+        response = self._post(endpoint="/register", payload=register_user_request_model.model_dump())
         register_user_response_model = RegisterUserResponseModel(**response.json())
 
         return response.status_code, register_user_response_model
@@ -35,7 +35,7 @@ class UserApiServices(ComonServices):
         :return: Tuple of two elements, CreateUserResponse pydantic model and response status code.
         """
         create_user_request_model = CreateUserRequestModel(name=name, job=job)
-        response = self.perform_post_requests(endpoint="/users", payload=create_user_request_model.model_dump())
+        response = self._post(endpoint="/users", payload=create_user_request_model.model_dump())
         create_user_response_model = CreateUserResponseModel(**response.json())
 
         return response.status_code, create_user_response_model
