@@ -5,6 +5,7 @@ import sys
 from logbook import Logger, StreamHandler
 import requests
 from dotenv import load_dotenv
+from requests import HTTPError, Timeout, RequestException
 
 load_dotenv()
 
@@ -37,16 +38,33 @@ class ComonServices:
         """
         self.logger.info(
             f"""
-            
-        Going to send POST request:
-        url: {self.base_url}{endpoint},
-        headers: {self.request_headers},
-        body: {json.dumps(payload)}
-        """
+                Going to send POST request:
+                url: {self.base_url}{endpoint},
+                headers: {self.request_headers},
+                body: {json.dumps(payload)}
+                """
         )
 
-        return requests.post(
-            url=f"{self.base_url}{endpoint}",
-            headers=self.request_headers,
-            data=json.dumps(payload),
-        )
+        try:
+            response = requests.post(
+                url=f"{self.base_url}{endpoint}",
+                headers=self.request_headers,
+                data=json.dumps(payload),
+            )
+            response.raise_for_status()
+            self.logger.info(
+                f"""
+                The request was sent.
+                Status code is: {response.status_code}.
+                Response body: {response.text}\n
+                """
+            )
+
+        except (HTTPError, Timeout, ConnectionError) as e:
+            self.logger.error(f"HTTP Request failed: {e}")
+            raise
+        except RequestException as e:
+            self.logger.error(f"An unexpected error occurred: {e}")
+            raise
+
+        return response
