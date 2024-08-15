@@ -18,3 +18,4 @@ urllib3==2.2.2
 
 python-dotenv~=1.0.1
 Logbook~=1.7.0.post0
+allure-python-commons~=2.13.5

@@ -2,6 +2,7 @@ import json
 import os
 import sys
 
+import allure
 from logbook import Logger, StreamHandler
 import requests
 from dotenv import load_dotenv
@@ -25,6 +26,7 @@ class ComonServices:
         self.logger = Logger("ApiService")  # Add logbook logger
         self.logger.handlers.append(StreamHandler(sys.stdout))  # Add StreamHandler to output logs to console
 
+    @allure.step("Perform POST request")
     def _post(self, endpoint: str, payload: dict, timeout: int = 20) -> requests.Response:
         """
         Sends a POST request to the specified endpoint with the given payload.
