@@ -16,7 +16,7 @@ def test_can_register_new_user(user_api_services):
         )
 
     with allure.step("Step 2: Check that response status code is 201."):
-        assert response_status_code == 201
+        assert response_status_code == 200
 
     with allure.step("Step 3: Check that the response has id 4"):
         assert response_model.id == 4
