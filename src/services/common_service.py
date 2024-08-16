@@ -57,7 +57,7 @@ class ComonServices:
             response.raise_for_status()
             self.logger.info(
                 f"""
-                The request was sent.
+                The response was received:
                 Status code is: {response.status_code}.
                 Response body: {response.text}\n
                 """
