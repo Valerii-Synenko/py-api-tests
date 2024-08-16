@@ -1,10 +1,13 @@
 import allure
 
-
+@allure.title("Test of the registration of a new user")
+@allure.description(
+    """Tests that a new user can be successfully registered with valid email and password.
+    Verifies that the API returns a 200 status code and that the user ID is correctly assigned."""
+)
 def test_can_register_new_user(user_api_services):
     """
-    Tests that a new user can be successfully registered with valid email and password.
-    Verifies that the API returns a 200 status code and that the user ID is correctly assigned.
+
     """
     with allure.step("Step 1: Register new user."):
         response_status_code, response_model = user_api_services.register_new_user(
@@ -19,11 +22,12 @@ def test_can_register_new_user(user_api_services):
         assert response_model.id == 4
 
 
+@allure.title("Test of the creation of a new user")
+@allure.description(
+    """Tests that a new user can be created with random name and job using the Faker library.
+    Verifies that the API returns a 201 status code and that the username is not empty."""
+)
 def test_can_create_new_user(user_api_services, faker):
-    """
-    Tests that a new user can be created with random name and job using the Faker library.
-    Verifies that the API returns a 201 status code and that the username is not empty.
-    """
     with allure.step("Step 1: Create a new user."):
         response_status_code, response_model = user_api_services.create_new_user(
             name=faker.name(),
