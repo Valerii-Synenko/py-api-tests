@@ -1,4 +1,6 @@
 import allure
+from hamcrest import assert_that, equal_to, greater_than
+
 
 @allure.title("Test of the registration of a new user")
 @allure.description(
@@ -16,10 +18,10 @@ def test_can_register_new_user(user_api_services):
         )
 
     with allure.step("Step 2: Check that response status code is 201."):
-        assert response_status_code == 200
+        assert_that(response_status_code, equal_to(200))
 
     with allure.step("Step 3: Check that the response has id 4"):
-        assert response_model.id == 4
+        assert_that(response_model.id, equal_to(4))
 
 
 @allure.title("Test of the creation of a new user")
@@ -35,7 +37,7 @@ def test_can_create_new_user(user_api_services, faker):
         )
 
     with allure.step("Step 2: Check that response status code is 201."):
-        assert response_status_code == 201
+        assert_that(response_status_code, equal_to(201))
 
     with allure.step("Step 3: Check that the user name length in the response is not nul."):
-        assert len(response_model.name) > 0
+        assert_that(len(response_model.name), greater_than(0))
