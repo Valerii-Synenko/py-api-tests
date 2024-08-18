@@ -12,6 +12,14 @@ class CreateUserRequestModel(BaseModel):
     name: str
     job: str
 
+    def __repr__(self):
+        """
+        Return a string representation of the CreateUserRequestModel instance.
+        The string includes the class name and the values of the 'name' and 'job' attributes.
+        """
+        return f"{self.__class__.__name__}(name={self.name!r}, job={self.job!r})"
+
+
 
 class RegisterUserRequestModel(BaseModel):
     """
@@ -44,3 +52,10 @@ class RegisterUserRequestModel(BaseModel):
         if value not in specified_emails:
             raise ValueError(f"'email' must be one of the member of the {specified_emails}")
         return value
+
+    def __repr__(self):
+        """
+        Return a string representation of the RegisterUserRequestModel instance.
+        The string includes the class name and the values of the 'email' and 'password' attributes.
+        """
+        return f"{self.__class__.__name__}(email={self.email!r}, password={self.password!r})"

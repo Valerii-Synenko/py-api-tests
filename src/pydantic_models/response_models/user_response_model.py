@@ -13,6 +13,7 @@ class CreateUserResponseModel(BaseModel):
         id (str): The unique identifier assigned to the user.
         createdAt (str): The timestamp when the user was created, expected to be in ISO 8601 format.
     """
+
     name: str
     job: str
     id: str
@@ -33,6 +34,13 @@ class CreateUserResponseModel(BaseModel):
             raise ValueError("'createdAt' must be in the format YYYY-MM-DDTHH:MM:SS.ffffffZ")
         return value
 
+    def __repr__(self):
+        """
+        Return a string representation of the CreateUserResponseModel instance.
+        The string includes the class name and the values of the 'name', 'job', 'id and 'createdAt' attributes.
+        """
+        return f"{self.__class__.__name__}(name={self.name!r}, job={self.job!r}, id={self.id!r}, createdAt={self.createdAt!r})"
+
 
 class RegisterUserResponseModel(BaseModel):
     """
@@ -42,6 +50,7 @@ class RegisterUserResponseModel(BaseModel):
         id (int): The unique identifier assigned to the user.
         token (str): The authentication token assigned to the user, expected to be 17 characters long.
     """
+
     id: int
     token: str
 
@@ -57,3 +66,10 @@ class RegisterUserResponseModel(BaseModel):
         if not len(value) == 17:
             raise ValueError(f"Expected 'token' length is 17, but received {len(value)} characters.")
         return value
+
+    def __repr__(self):
+        """
+        Return a string representation of the RegisterUserResponseModel instance.
+        The string includes the class name and the values of the 'id' and 'token' attributes.
+        """
+        return f"{self.__class__.__name__}(id={self.id!r}, token={self.token!r})"
