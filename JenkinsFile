@@ -12,16 +12,32 @@ pipeline {
                 )
             }
         }
+        stage('Set up Python Environment') {
+            steps {
+                // Create and activate virtual environment
+                sh '''
+                    python3 -m venv venv
+                    . venv/bin/activate
+                    pip install --upgrade pip
+                '''
+            }
+        }
         stage('Install Dependencies') {
             steps {
                 // Install requirements
-                sh 'pip install -r requirements.txt'
+                sh '''
+                    . venv/bin/activate
+                    pip install -r requirements.txt
+                '''
             }
         }
         stage('Run Tests') {
             steps {
                 // Run tests
-                sh 'pytest'
+                sh '''
+                    . venv/bin/activate
+                    pytest
+                '''
             }
         }
     }
