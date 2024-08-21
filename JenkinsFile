@@ -4,8 +4,11 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                // Clean the repo
-                git 'https://github.com/Valerii-Synenko/py-api-tests.git'
+                // Checkout the repo
+                git(
+                    branch: 'main',
+                    url: 'https://github.com/yourusername/your-repo.git'
+                )
             }
         }
         stage('Install Dependencies') {
