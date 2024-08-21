@@ -8,6 +8,7 @@ pipeline {
                 git(
                     branch: 'main',
                     url: 'https://github.com/Valerii-Synenko/py-api-tests.git',
+                    credentialsId: 'github_pat_for_py_api_test'
                 )
             }
         }
