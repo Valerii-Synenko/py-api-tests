@@ -1,0 +1,39 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Checkout') {
+            steps {
+                // Clean the repo
+                git 'https://github.com/Valerii-Synenko/py-api-tests.git'
+            }
+        }
+        stage('Install Dependencies') {
+            steps {
+                // Install requirements
+                sh 'pip install -r requirements.txt'
+            }
+        }
+        stage('Run Tests') {
+            steps {
+                // Run tests
+                sh 'pytest'
+            }
+        }
+    }
+
+    post {
+        always {
+            // Clean after the end
+            cleanWs()
+        }
+        success {
+            // If tests are are passed
+            echo 'Tests passed successfully!'
+        }
+        failure {
+            // If tests are are failed
+            echo 'Tests failed!'
+        }
+    }
+}
