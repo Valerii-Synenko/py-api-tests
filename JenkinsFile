@@ -4,7 +4,6 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                // Checkout the repo
                 git(
                     branch: 'main',
                     url: 'https://github.com/Valerii-Synenko/py-api-tests.git',
@@ -12,4 +11,5 @@ pipeline {
                 )
             }
         }
+    }
 }
