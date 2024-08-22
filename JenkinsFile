@@ -1,4 +1,7 @@
 pipeline {
+    environment {
+        BASE_API_URL = "https://reqres.in/api"
+    }
     agent any
 
     stages {
