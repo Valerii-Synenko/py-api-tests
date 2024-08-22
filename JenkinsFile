@@ -1,43 +1,26 @@
 node {
-    stage('Checkout') {
+    stage('Checkout repo') {
         git(
             branch: 'main',
             url: 'https://github.com/Valerii-Synenko/py-api-tests.git',
             credentialsId: 'github_pat_for_py_api_test'
         )
     }
-    stage('Setup Python Environment and Install Dependencies') {
-        sh '''
-        python3 -m venv venv
-        . venv/bin/activate
-        pip install -r requirements.txt
-        '''
-    }
-    stage('Verify Dependencies') {
-        sh '''
-        . venv/bin/activate
-        pip freeze
-        '''
+    stage('Install Dependencies') {
+        sh 'pip install -r requirements.txt'
     }
     stage('Run Pytest') {
-        sh '''
-        . venv/bin/activate
-        export PYTHONPATH=$PYTHONPATH:/var/jenkins_home/workspace/py-api-tests/src
-        pytest --maxfail=1 --disable-warnings --alluredir=allure-results
-        '''
+        sh 'python -m pytest --alluredir=allure-results'
     }
-    stage('Generate Allure Report') {
-        sh '''
-        . venv/bin/activate
-        allure generate allure-results --clean -o allure-report
-        '''
-    }
-    stage('Publish Allure Report') {
-        allure([
-            includeProperties: false,
-            jdk: '',
-            results: [[path: 'allure-results']],
-            report: [[path: 'allure-report']]
-        ])
+    stage('Report') {
+        script {
+            allure([
+                includeProperties: false,
+                jdk: '',
+                properties: [],
+                reportBuildPolicy: 'ALWAYS',
+                results: [[path: 'allure-results']],
+            ])
+        }
     }
 }
