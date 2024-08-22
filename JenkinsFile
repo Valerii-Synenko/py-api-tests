@@ -13,9 +13,16 @@ node {
         pip install -r requirements.txt
         '''
     }
+    stage('Verify Dependencies') {
+        sh '''
+        . venv/bin/activate
+        pip freeze
+        '''
+    }
     stage('Run Pytest') {
         sh '''
         . venv/bin/activate
+        export PYTHONPATH=$PYTHONPATH:/var/jenkins_home/workspace/py-api-tests/src
         pytest --maxfail=1 --disable-warnings --alluredir=allure-results
         '''
     }
