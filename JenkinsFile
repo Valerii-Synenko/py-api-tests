@@ -1,37 +1,13 @@
-pipeline {
-    agent any
+node {
+    stage('Checkout') {
+        git(
+            branch: 'main',
+            url: 'https://github.com/Valerii-Synenko/py-api-tests.git',
+            credentialsId: 'github_pat_for_py_api_test'
+        )
+    }
 
-    stages {
-        stage('Checkout') {
-            steps {
-                git(
-                    branch: 'main',
-                    url: 'https://github.com/Valerii-Synenko/py-api-tests.git',
-                    credentialsId: 'github_pat_for_py_api_test'
-                )
-            }
-        }
-        stage('Setup Python Environment') {
-            steps {
-                script {
-                    // Create and activate a virtual environment
-                    sh '''
-                    python3 -m venv venv
-                    source venv/bin/activate
-                    '''
-                }
-            }
-        }
-        stage('Install Dependencies') {
-            steps {
-                script {
-                    // Install dependencies within the virtual environment
-                    sh '''
-                    source venv/bin/activate
-                    pip install -r requirements.txt
-                    '''
-                }
-            }
-        }
+    stage('Install Dependencies') {
+        sh 'pip install -r requirements.txt'
     }
 }
