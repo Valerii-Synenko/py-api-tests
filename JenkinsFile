@@ -1,38 +1,31 @@
-node {
-    stage('Checkout repo') {
-        git(
-            branch: 'main',
-            url: 'https://github.com/Valerii-Synenko/py-api-tests.git',
-            credentialsId: 'github_pat_for_py_api_test'
-        )
-    }
-    stage('Setup Virtual Environment') {
-        sh '''
-            python -m venv venv
-            . venv/bin/activate
-        '''
-    }
-    stage('Install Dependencies') {
-        sh '''
-            . venv/bin/activate
-            pip install -r requirements.txt
-        '''
-    }
-    stage('Run Pytest') {
-        sh '''
-            . venv/bin/activate
-            python -m pytest --alluredir=allure-results
-        '''
-    }
-    stage('Report') {
-        script {
-            allure([
-                includeProperties: false,
-                jdk: '',
-                properties: [],
-                reportBuildPolicy: 'ALWAYS',
-                results: [[path: 'allure-results']],
-            ])
+pipeline {
+    agent any
+
+    stages {
+        stage('Checkout') {
+            steps {
+                git(
+                    branch: 'main',
+                    url: 'https://github.com/Valerii-Synenko/py-api-tests.git',
+                    credentialsId: 'github_pat_for_py_api_test'
+                )
+            }
+        }
+        stage('Setup Python Environment') {
+            steps {
+                sh '''
+                python3 -m venv venv
+                . venv/bin/activate
+                '''
+            }
+        }
+        stage('Install Dependencies') {
+            steps {
+                sh '''
+                . venv/bin/activate
+                pip install -r requirements.txt
+                '''
+            }
         }
     }
 }
