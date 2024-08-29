@@ -39,3 +39,6 @@ def test_can_create_new_user(user_api_services, faker):
 
     with allure.step("Step 3: Check that the user name length in the response is not null."):
         assert_that(len(response_model.name), greater_than(0))
+
+
+#  Test comment just for a testing of a WebHooks
