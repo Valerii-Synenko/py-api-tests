@@ -20,7 +20,6 @@ class CreateUserRequestModel(BaseModel):
         return f"{self.__class__.__name__}(name={self.name!r}, job={self.job!r})"
 
 
-
 class RegisterUserRequestModel(BaseModel):
     """
     A moder represent the request for a new user registration.

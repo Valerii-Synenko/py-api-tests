@@ -3,10 +3,10 @@ import os
 import sys
 
 import allure
-from logbook import Logger, StreamHandler
 import requests
 from dotenv import load_dotenv
-from requests import HTTPError, Timeout, RequestException
+from logbook import Logger, StreamHandler
+from requests import HTTPError, RequestException, Timeout
 
 load_dotenv()
 

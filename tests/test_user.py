@@ -8,9 +8,7 @@ from hamcrest import assert_that, equal_to, greater_than
     Verifies that the API returns a 200 status code and that the user ID is correctly assigned."""
 )
 def test_can_register_new_user(user_api_services):
-    """
-
-    """
+    """ """
     with allure.step("Step 1: Register new user."):
         response_status_code, response_model = user_api_services.register_new_user(
             email="eve.holt@reqres.in",
