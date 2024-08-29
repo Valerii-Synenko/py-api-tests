@@ -27,6 +27,7 @@ pipeline {
                 sh '''
                 . venv/bin/activate
                 pip install -r requirements.txt
+                pip install allure-pytest
                 '''
             }
         }
@@ -35,8 +36,19 @@ pipeline {
                 sh '''
                 . venv/bin/activate
                 export PYTHONPATH=$PYTHONPATH:$(pwd)/src
-                pytest --disable-warnings -q
+                pytest --alluredir=allure-results --disable-warnings -q
                 '''
+            }
+        }
+        stage('Publish Allure Report') {
+            steps {
+                allure([
+                    includeProperties: false,
+                    jdk: '',
+                    properties: [],
+                    reportBuildPolicy: 'ALWAYS',
+                    results: [[path: 'allure-results']]
+                ])
             }
         }
     }
