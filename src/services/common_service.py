@@ -71,3 +71,46 @@ class ComonServices:
             raise
 
         return response
+
+    @allure.step("Perform GET request")
+    def _get(self, endpoint: str, timeout: int = 20) -> requests.Response:
+        """
+        Performs a GET request to the specified endpoint.
+
+        :param endpoint: The API endpoint to send the GET request to.
+        :param timeout: Timeout in seconds for the request. Defaults to 20.
+
+        :return: The response object from the GET request.
+
+        :raise:
+            HTTPError: If the response contains an HTTP error status.
+            Timeout: If the request times out.
+            ConnectionError: If a connection error occurs.
+            RequestException: For any other request-related exceptions.
+        """
+        self.logger.info(
+            f"Going to send GET request:\n"
+            f"url: {self.base_url}{endpoint},\n"
+            f"headers: {self.request_headers}\n"
+        )
+        try:
+            response = requests.get(
+                url=f"{self.base_url}{endpoint}",
+                headers=self.request_headers,
+                timeout=timeout,
+            )
+            response.raise_for_status()
+            self.logger.info(
+                f"The response was received:\n"
+                f"Status code: {response.status_code}\n"
+                f"Response body: {response.text}\n"
+            )
+
+        except (HTTPError, Timeout, ConnectionError) as e:
+            self.logger.error(f"HTTP Request failed: {e}")
+            raise
+        except RequestException as e:
+            self.logger.error(f"An unexpected error occurred: {e}")
+            raise
+
+        return response
