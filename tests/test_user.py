@@ -54,3 +54,18 @@ def test_get_single_user(user_api_services):
 
     with allure.step("Step 3: Check the name of the user with ID 5"):
         assert_that(response_model.data.first_name, equal_to("Charles"))
+
+
+@allure.title("Test verify geting a list of usert from the specified page")
+@allure.description(
+    "The test gets a list of of users cheks the status code and calidate that there are 6 users inside the list."
+)
+def test_get_list_of_users(user_api_services):
+    with allure.step("Step 1: Get list of users from the page #5"):
+        response_status_code, response_model = user_api_services.get_list_of_users(page_number=2)
+
+    with allure.step("Step 2: Check that response status code is 200"):
+        assert_that(response_status_code, equal_to(200))
+
+    with allure.step("Step 3: Check that there are 7 users inside the response list"):
+        assert_that(len(response_model.data), equal_to(6))
