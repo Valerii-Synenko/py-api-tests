@@ -1,6 +1,7 @@
 import json
 import os
 import sys
+from typing import Any
 
 import allure
 import requests
@@ -73,7 +74,7 @@ class ComonServices:
         return response
 
     @allure.step("Perform GET request")
-    def _get(self, endpoint: str, timeout: int = 20) -> requests.Response:
+    def _get(self, endpoint: str, params: Any | None = None, timeout: int = 20) -> requests.Response:
         """
         Performs a GET request to the specified endpoint.
 
@@ -91,12 +92,14 @@ class ComonServices:
         self.logger.info(
             f"Going to send GET request:\n"
             f"url: {self.base_url}{endpoint},\n"
+            f"params: {params},\n"
             f"headers: {self.request_headers}\n"
         )
         try:
             response = requests.get(
                 url=f"{self.base_url}{endpoint}",
                 headers=self.request_headers,
+                params=params,
                 timeout=timeout,
             )
             response.raise_for_status()
