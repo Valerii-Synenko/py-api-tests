@@ -1,10 +1,9 @@
-from http.client import responses
-
 from src.pydantic_models.request_models.user_request_model import (
     CreateUserRequestModel,
     RegisterUserRequestModel,
 )
 from src.pydantic_models.response_models.get_user_respons_model import GetUserResponseModel
+from src.pydantic_models.response_models.get_users_respons_vodel import GetListOfUsersResponseModel
 from src.pydantic_models.response_models.user_response_model import (
     CreateUserResponseModel,
     RegisterUserResponseModel,
@@ -55,3 +54,17 @@ class UserApiServices(ComonServices):
         responses_get_user_model = GetUserResponseModel(**response.json())
 
         return response.status_code, responses_get_user_model
+
+    def get_list_of_users(self, page_number: int) -> tuple[int, GetListOfUsersResponseModel]:
+        """
+        Gets a list of user per specific page.
+        Method makes GET request to /users/ endpoint with specified parameters
+        :param page_number: Page from which will be getting the list.
+        :return: Tuple with status code and GetListOfUsersResponseModel object
+        """
+
+        response = self._get(endpoint=f"/users", params={"page": page_number})
+
+        response_model = GetListOfUsersResponseModel(**response.json())
+
+        return response.status_code, response_model
