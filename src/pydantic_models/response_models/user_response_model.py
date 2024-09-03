@@ -72,4 +72,4 @@ class RegisterUserResponseModel(BaseModel):
         Return a string representation of the RegisterUserResponseModel instance.
         The string includes the class name and the values of the 'id' and 'token' attributes.
         """
-        return f"{self.__class__.__name__}(id={self.id!r}, token={self.token!r})"
+        return f"{self.__class__.__name__}\n id={self.id!r}\n token={self.token!r}"
