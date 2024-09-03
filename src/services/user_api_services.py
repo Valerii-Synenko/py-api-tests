@@ -1,7 +1,10 @@
+from http.client import responses
+
 from src.pydantic_models.request_models.user_request_model import (
     CreateUserRequestModel,
     RegisterUserRequestModel,
 )
+from src.pydantic_models.response_models.get_user_respons_model import GetUserResponseModel
 from src.pydantic_models.response_models.user_response_model import (
     CreateUserResponseModel,
     RegisterUserResponseModel,
@@ -39,3 +42,16 @@ class UserApiServices(ComonServices):
         create_user_response_model = CreateUserResponseModel(**response.json())
 
         return response.status_code, create_user_response_model
+
+    def get_user_by_id(self, user_id: str) -> tuple[int, GetUserResponseModel]:
+        """
+        Gets specified user by its id.
+        Method makes GET request to /users/ endpoint.
+        :param user_id: The id of expected user
+        :return: Tuple with a response code and GetUserResponseModel object
+        """
+        response = self._get(endpoint=f"/users/{user_id}")
+
+        responses_get_user_model = GetUserResponseModel(**response.json())
+
+        return response.status_code, responses_get_user_model
