@@ -41,4 +41,16 @@ def test_can_create_new_user(user_api_services, faker):
         assert_that(len(response_model.name), greater_than(0))
 
 
-#  Test comment just for a testing of a WebHooks
+@allure.title("Tes of the getting a user by its id")
+@allure.description(
+    "The test gets a user by its id, the check that the response status code is 200 and the name of the user"
+)
+def test_get_single_user(user_api_services):
+    with allure.step("Step 1: Send GET request to get a user"):
+        response_status_code, response_model = user_api_services.get_user_by_id(user_id=5)
+
+    with allure.step("Step 1: Check that response status code is 200"):
+        assert_that(response_status_code, equal_to(200))
+
+    with allure.step("Step 3: Check the name of the user with ID 5"):
+        assert_that(response_model.data.first_name, equal_to("Charles"))
