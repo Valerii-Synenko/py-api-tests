@@ -2,12 +2,11 @@ from src.pydantic_models.request_models.user_request_model import (
     CreateUserRequestModel,
     RegisterUserRequestModel,
 )
+from src.pydantic_models.response_models.create_user_response_model import CreateUserResponseModel
 from src.pydantic_models.response_models.get_user_respons_model import GetUserResponseModel
 from src.pydantic_models.response_models.get_users_respons_vodel import GetListOfUsersResponseModel
-from src.pydantic_models.response_models.user_response_model import (
-    CreateUserResponseModel,
-    RegisterUserResponseModel,
-)
+from src.pydantic_models.response_models.register_user_response_model import RegisterUserResponseModel
+
 
 from src.services.common_service import ComonServices
 
