@@ -117,3 +117,49 @@ class ComonServices:
             raise
 
         return response
+
+    @allure.step("Perform PATCH request")
+    def _patch(self, endpoint: str, payload: dict, timeout: int = 20) -> requests.Response:
+        """
+        Sends a PATCH request to the specified endpoint with the given payload.
+
+        This method utilizes the Requests package to perform the PATCH request, including the common headers
+        and base URL defined in the class.
+
+        :param endpoint: The API endpoint to which the PATCH request will be sent.
+        :param payload: A dictionary containing the data to be sent in the PATCH request body.
+        :return: A Response object from the Requests package representing the server's response.
+        """
+        self.logger.info(
+            f"""
+                Going to send PATCH request:
+                url: {self.base_url}{endpoint},
+                headers: {self.request_headers},
+                body: {json.dumps(payload)}
+                """
+        )
+
+        try:
+            response = requests.patch(
+                url=f"{self.base_url}{endpoint}",
+                headers=self.request_headers,
+                data=json.dumps(payload),
+                timeout=timeout,
+            )
+            response.raise_for_status()
+            self.logger.info(
+                f"""
+                The response was received:
+                Status code is: {response.status_code}.
+                Response body: {response.text}\n
+                """
+            )
+
+        except (HTTPError, Timeout, ConnectionError) as e:
+            self.logger.error(f"HTTP Request failed: {e}")
+            raise
+        except RequestException as e:
+            self.logger.error(f"An unexpected error occurred: {e}")
+            raise
+
+        return response
