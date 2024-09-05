@@ -56,9 +56,9 @@ def test_get_single_user(user_api_services):
         assert_that(response_model.data.first_name, equal_to("Charles"))
 
 
-@allure.title("Test verify geting a list of usert from the specified page")
+@allure.title("Test verify getting a list of user from the specified page")
 @allure.description(
-    "The test gets a list of of users cheks the status code and calidate that there are 6 users inside the list."
+    "The test gets a list of of users checks the status code and validate that there are 6 users inside the list."
 )
 def test_get_list_of_users(user_api_services):
     with allure.step("Step 1: Get list of users from the page #5"):
