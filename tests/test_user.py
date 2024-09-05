@@ -1,6 +1,8 @@
 import allure
 from hamcrest import assert_that, equal_to, greater_than
 
+from src.pydantic_models.request_models.update_user_request_model import UpdateUserRequest
+
 
 @allure.title("Test of the registration of a new user")
 @allure.description(
@@ -69,3 +71,20 @@ def test_get_list_of_users(user_api_services):
 
     with allure.step("Step 3: Check that there are 7 users inside the response list"):
         assert_that(len(response_model.data), equal_to(6))
+
+
+@allure.title("Test verify updating a user via PATCH method")
+@allure.description("The test the test sends PATCH method with required data and validate that the changes were made.")
+def test_partially_update_user(user_api_services):
+
+    with allure.step("Step 1: Send PATCH request with data to update"):
+        user_model = UpdateUserRequest(name="Neo")
+        response_status_code, user_response_model = user_api_services.update_user_by_patch_method(
+            user_id=2, user_model=user_model
+        )
+
+    with allure.step("Step 2: Assert tar response status code is 200"):
+        assert_that(response_status_code, equal_to(200))
+
+    with allure.step("Step 3: Assert that the user name is updated"):
+        assert_that(user_response_model.name, equal_to("Neo"))
