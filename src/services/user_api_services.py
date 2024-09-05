@@ -1,12 +1,11 @@
-from src.pydantic_models.request_models.user_request_model import (
-    CreateUserRequestModel,
-    RegisterUserRequestModel,
-)
+from src.pydantic_models.request_models.create_user_request_model import CreateUserRequestModel
+from src.pydantic_models.request_models.update_user_request_model import UpdateUserRequest
+from src.pydantic_models.request_models.register_user_request_model import RegisterUserRequestModel
 from src.pydantic_models.response_models.create_user_response_model import CreateUserResponseModel
 from src.pydantic_models.response_models.get_user_respons_model import GetUserResponseModel
 from src.pydantic_models.response_models.get_users_respons_vodel import GetListOfUsersResponseModel
 from src.pydantic_models.response_models.register_user_response_model import RegisterUserResponseModel
-
+from src.pydantic_models.response_models.update_user_response_model import UpdateUseResponse
 
 from src.services.common_service import ComonServices
 
@@ -67,3 +66,20 @@ class UserApiServices(ComonServices):
         response_model = GetListOfUsersResponseModel(**response.json())
 
         return response.status_code, response_model
+
+
+    def update_user_by_patch_method(self, user_id: int, user_model: UpdateUserRequest) -> tuple[int, UpdateUseResponse]:
+        """
+        Updates a user resource using the PATCH method.
+
+        This method sends a PATCH request to update the user information with the specified user ID.
+        The request payload is constructed from the provided `user_model`, and the response is parsed
+        into an `UpdateUseResponse` object.
+
+        :param user_id: The ID of the user to be updated.
+        :param user_model: The data to be used for updating the user. Fields can be optional.
+        :return: tuple with int and an oject of the UpdateUseResponse model
+        """
+        response = self._patch(endpoint=f"/users/{user_id}", payload=user_model.model_dump())
+        response_body_as_pydantic_model = UpdateUseResponse(**response.json())
+        return response.status_code, response_body_as_pydantic_model
