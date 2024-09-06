@@ -74,7 +74,7 @@ def test_get_list_of_users(user_api_services):
 
 
 @allure.title("Test verify updating a user via PATCH method")
-@allure.description("The test the test sends PATCH method with required data and validate that the changes were made.")
+@allure.description("The test sends PATCH method with required data and validate that the changes were made.")
 def test_partially_update_user(user_api_services):
 
     with allure.step("Step 1: Send PATCH request with data to update"):
