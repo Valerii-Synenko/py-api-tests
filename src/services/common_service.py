@@ -163,3 +163,46 @@ class ComonServices:
             raise
 
         return response
+
+
+    @allure.step("Perform DELETE request")
+    def _delete(self, endpoint: str, timeout: int = 20) -> requests.Response:
+        """
+        Sends a DELETE request to the specified endpoint.
+
+        This method uses the Requests package to perform the DELETE request, including the common headers
+        and base URL defined in the class.
+
+        :param endpoint: The API endpoint to which the DELETE request will be sent.
+        :return: A Response object from the Requests package representing the server's response.
+        """
+        self.logger.info(
+            f"""
+                Going to send DELETE request:
+                url: {self.base_url}{endpoint},
+                headers: {self.request_headers},
+                """
+        )
+
+        try:
+            response = requests.delete(
+                url=f"{self.base_url}{endpoint}",
+                headers=self.request_headers,
+                timeout=timeout,
+            )
+            response.raise_for_status()
+            self.logger.info(
+                f"""
+                The response was received:
+                Status code is: {response.status_code}.
+                """
+            )
+
+        except (HTTPError, Timeout, ConnectionError) as e:
+            self.logger.error(f"HTTP Request failed: {e}")
+            raise
+        except RequestException as e:
+            self.logger.error(f"An unexpected error occurred: {e}")
+            raise
+
+        return response
