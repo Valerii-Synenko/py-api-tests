@@ -88,3 +88,14 @@ def test_partially_update_user(user_api_services):
 
     with allure.step("Step 3: Assert that the user name is updated"):
         assert_that(user_response_model.name, equal_to("Neo"))
+
+
+@allure.title("Test verify deletion a user")
+@allure.description("The test sends DELETE method with the specified user id.")
+def test_delete_user(user_api_services):
+
+    with allure.step("Step 1: Send DELETE request"):
+        response_status_code = user_api_services.delete_user(user_id=2)
+
+    with allure.step("Step 2: Assert tar response status code is 204"):
+        assert_that(response_status_code, equal_to(204))
