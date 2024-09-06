@@ -48,9 +48,7 @@ class UserApiServices(ComonServices):
         :return: Tuple with a response code and GetUserResponseModel object
         """
         response = self._get(endpoint=f"/users/{user_id}")
-
         responses_get_user_model = GetUserResponseModel(**response.json())
-
         return response.status_code, responses_get_user_model
 
     def get_list_of_users(self, page_number: int) -> tuple[int, GetListOfUsersResponseModel]:
@@ -62,11 +60,8 @@ class UserApiServices(ComonServices):
         """
 
         response = self._get(endpoint=f"/users", params={"page": page_number})
-
         response_model = GetListOfUsersResponseModel(**response.json())
-
         return response.status_code, response_model
-
 
     def update_user_by_patch_method(self, user_id: int, user_model: UpdateUserRequest) -> tuple[int, UpdateUseResponse]:
         """
@@ -83,3 +78,13 @@ class UserApiServices(ComonServices):
         response = self._patch(endpoint=f"/users/{user_id}", payload=user_model.model_dump())
         response_body_as_pydantic_model = UpdateUseResponse(**response.json())
         return response.status_code, response_body_as_pydantic_model
+
+    def delete_user(self, user_id: int) -> int:
+        """
+        Method deletes a user by its ID.
+
+        :param user_id: An id of user to delete
+        :return: response status code
+        """
+        response = self._delete(endpoint=f"/users/{user_id}")
+        return response.status_code
