@@ -90,6 +90,26 @@ def test_partially_update_user(user_api_services):
         assert_that(user_response_model.name, equal_to("Neo"))
 
 
+@allure.title("Test verify updating a user via PUT method")
+@allure.description("The test sends PUT method with required data and validates that the changes were made.")
+def test_fully_update_user(user_api_services):
+
+    with allure.step("Step 1: Send PUT request with data to update"):
+        user_model = UpdateUserRequest(name="Neo", job="matrix")
+        response_status_code, user_response_model = user_api_services.update_user_by_put_method(
+            user_id=2, user_model=user_model
+        )
+
+    with allure.step("Step 2: Assert that response status code is 200"):
+        assert_that(response_status_code, equal_to(200))
+
+    with allure.step("Step 3: Assert that the user name is updated"):
+        assert_that(user_response_model.name, equal_to("Neo"))
+
+    with allure.step("Step 4: Assert that the user email is updated"):
+        assert_that(user_response_model.job, equal_to("matrix"))
+
+
 @allure.title("Test verify deletion a user")
 @allure.description("The test sends DELETE method with the specified user id.")
 def test_delete_user(user_api_services):
