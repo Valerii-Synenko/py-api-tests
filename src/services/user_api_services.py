@@ -79,6 +79,22 @@ class UserApiServices(ComonServices):
         response_body_as_pydantic_model = UpdateUseResponse(**response.json())
         return response.status_code, response_body_as_pydantic_model
 
+    def update_user_by_put_method(self, user_id: int, user_model: UpdateUserRequest) -> tuple[int, UpdateUseResponse]:
+        """
+        Updates a user resource using the PUT method.
+
+        This method sends a PUT request to update the user information with the specified user ID.
+        The request payload is constructed from the provided `user_model`, and the response is parsed
+        into an `UpdateUseResponse` object.
+
+        :param user_id: The ID of the user to be updated.
+        :param user_model: The data to be used for updating the user. All fields must be provided.
+        :return: tuple with int and an object of the UpdateUseResponse model
+        """
+        response = self._put(endpoint=f"/users/{user_id}", payload=user_model.model_dump())
+        response_body_as_pydantic_model = UpdateUseResponse(**response.json())
+        return response.status_code, response_body_as_pydantic_model
+
     def delete_user(self, user_id: int) -> int:
         """
         Method deletes a user by its ID.
